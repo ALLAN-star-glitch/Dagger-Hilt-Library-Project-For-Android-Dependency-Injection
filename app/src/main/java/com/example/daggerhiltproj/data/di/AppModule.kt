@@ -1,24 +1,21 @@
-package com.example.daggerhiltproj.data.di
 
-import com.example.daggerhiltproj.MyApp
+package com.example.daggerhiltproj.data.di
 import com.example.daggerhiltproj.data.remote.MyApi
-import com.example.daggerhiltproj.data.repository.MyRepositoryImpl
-import com.example.daggerhiltproj.domain.repository.MyRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
+import javax.inject.Named
 import javax.inject.Singleton
 
-
 @Module
-@InstallIn(SingletonComponent::class) //SingletonComponent decides about the lifetime of our dependencies in this AppModule
+@InstallIn(SingletonComponent::class)
 object AppModule {
 
-    @Provides //tells dagger that this function provides a dependency
-    @Singleton //to ensure a singleton instance of the MyApi
-    fun provideMyApi(): MyApi{
+    @Provides
+    @Singleton
+    fun provideMyApi(): MyApi {
         return Retrofit.Builder()
             .baseUrl("https://test.com")
             .build()
@@ -27,7 +24,11 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideMyRepository(api: MyApi, appContext: MyApp): MyRepository{
-        return MyRepositoryImpl(api, appContext)
-    }
+    @Named("hello1")
+    fun provideString1() = "Hello 1"
+
+    @Provides
+    @Singleton
+    @Named("hello2")
+    fun provideString2() = "Hello 2"
 }
