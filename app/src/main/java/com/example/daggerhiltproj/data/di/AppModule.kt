@@ -1,5 +1,6 @@
 package com.example.daggerhiltproj.data.di
 
+import com.example.daggerhiltproj.MyApp
 import com.example.daggerhiltproj.data.remote.MyApi
 import com.example.daggerhiltproj.data.repository.MyRepositoryImpl
 import com.example.daggerhiltproj.domain.repository.MyRepository
@@ -26,7 +27,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideMyRepository(api: MyApi): MyRepository{
-        return MyRepositoryImpl(api)
+    fun provideMyRepository(api: MyApi, appContext: MyApp): MyRepository{
+        return MyRepositoryImpl(api, appContext)
     }
 }
